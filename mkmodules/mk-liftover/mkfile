@@ -1,0 +1,7 @@
+MKSHELL=/bin/bash
+
+%.liftover.bed:Q: %.bed
+	echo "[DEBUG] lifting over $prereq"
+	CrossMap.py bed $CHAINFILE $prereq $target.build \
+	&& mv $target.build $target \
+	&& mv $target.build.unmap $target.unmap
