@@ -1,2 +1,5 @@
 ## ignore test results in mk modules
 mkmodules/*/test/results
+
+## ignore local .Rhistory files
+.Rhistory
