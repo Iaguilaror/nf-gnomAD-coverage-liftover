@@ -3,7 +3,8 @@ MKSHELL=/bin/bash
 %.edited.tsv:Q: %.edited.tmp
 	echo "[DEBUG] editing tsv file"
 	Rscript --vanilla tsv-editor.R $prereq $target.build \
-	&& mv $target.build $target
+	&& mv $target.build $target \
+	&& rm $prereq
 
 %.edited.tmp:Q: %.tsv
 	echo "[DEBUG] removing columns from tsv file"
