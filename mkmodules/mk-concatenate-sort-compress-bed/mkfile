@@ -1,8 +1,9 @@
 MKSHELL=/bin/bash
 
-%.bed:Q:
+%.bed.gz:Q:
 	echo "[DEBUG] concatenating tsvs into $target"
 	cat $stem*.bed \
 	| sort -V -k1,1 -k2,2 -k3,3 \
-	| sed "s#^#chr#" > $target.build \
+	| sed "s#^#chr#" \
+	| bgzip -c > $target.build \
 	&& mv $target.build $target

@@ -1,0 +1,19 @@
+MKSHELL=/bin/bash
+
+%.pdf:Q: %.tmp
+	echo "[DEBUG] plotting brief report"
+	Rscript --vanilla reporter.R $prereq $target.build \
+	&& mv $target.build $target
+
+%.tmp:Q: %.bed.gz %.tsv.bgz
+	echo "[DEBUG] calculating values"
+	total_positions=$(zcat $stem.tsv.bgz | wc -l)
+	mapped_positions=$(zcat $stem.bed.gz | wc -l)
+	## Substract 1 due to total positions including the header line
+	unmapped_positions=$(( $total_positions - $mapped_positions -1 ))
+	{
+	echo "Positions Numbers"
+	echo "mapped_positions $mapped_positions"
+	echo "unmapped_positions $unmapped_positions"
+	} | tr " " "\t" > $target.build \
+	&& mv $target.build $target
