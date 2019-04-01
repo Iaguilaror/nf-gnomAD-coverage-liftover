@@ -11,7 +11,7 @@ mkdir -p test/results
 echo "[>>.] results will be created in test/results"
 ## Execute runmk.sh, it will find the basic example in test/data
 ## Move results from test/data to test/results
-## results files are *.edited.tsv
+## results files are *.bed
 ./runmk.sh \
-&& mv test/data/*.edited.tsv test/results \
+&& mv test/data/*.bed test/results \
 && echo "[>>>] Module Test Successful"
