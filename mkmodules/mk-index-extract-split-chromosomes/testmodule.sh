@@ -3,7 +3,7 @@
 
 ## Export variables
 # CHUNK_NUMBER="Number of pieces to split each tsv"
-export CHUNK_NUMBER="10"
+export NUMBER_OF_CHUNKS="10"
 
 echo "[>..] test running this module with data in test/data"
 ## Remove old test results, if any; then create test/reults dir

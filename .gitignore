@@ -3,3 +3,12 @@ mkmodules/*/test/results
 
 ## ignore local .Rhistory files
 .Rhistory
+
+## ignore nextflow hidden files
+.nextflow*
+
+## ignore work dir
+work
+
+## ignore test results
+test/results
