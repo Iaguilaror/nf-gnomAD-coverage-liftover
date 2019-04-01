@@ -1,0 +1,48 @@
+MKSHELL=/bin/bash
+
+## Remove intermediate tsv but not the chunks, to reduce disk usage
+clean:QV:
+	echo "[DEBUG] cleaning trash files"
+	find -L . \
+		-type f \
+		-name "*.subsampled*.tsv" \
+		! -name "*.chunk*.tsv" \
+	| xargs rm
+
+%.SPLIT:QV: %.EXTRACT
+	for tsvfile in $stem.subsampled*.tsv
+	do
+		subtarget=$(echo $tsvfile | sed "s#.tsv##")
+		echo "[DEBUG] splitting $tsvfile"
+		split \
+			--suffix-length=4 \
+			--additional-suffix=.tsv \
+			-d \
+			--number=l/$CHUNK_NUMBER \
+	 		--elide-empty-files \
+			$tsvfile \
+			$subtarget.chunk
+	done \
+	&& mk clean
+
+%.EXTRACT:QV: %.tsv.bgz %.tsv.bgz.tbi
+	echo "[DEBUG] extracting chromosomes"
+	for chromosome in $(tabix --list-chroms $stem.tsv.bgz)
+	do
+		echo "[DEBUG] extracting $chromosome"
+		subtarget="$stem.subsampled$chromosome.tsv"
+		tabix $stem.tsv.bgz $chromosome > $subtarget.build \
+		&& mv $subtarget.build $subtarget
+	done
+
+# http://www.htslib.org/doc/tabix.html
+%.tsv.bgz.tbi:Q: %.tsv.bgz
+	echo "[DEBUG] tabix indexing"
+	tabix \
+		--zero-based \
+		--begin 2 \
+		--end 2 \
+		--sequence 1 \
+		--skip-lines 1 \
+		--force \
+	$prereq

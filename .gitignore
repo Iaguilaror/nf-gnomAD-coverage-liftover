@@ -1,0 +1,2 @@
+## ignore test results in mk modules
+mkmodules/*/test/results
