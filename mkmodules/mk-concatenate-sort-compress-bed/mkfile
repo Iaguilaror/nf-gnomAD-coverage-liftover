@@ -6,4 +6,6 @@ MKSHELL=/bin/bash
 	| sort -V -k1,1 -k2,2 -k3,3 \
 	| sed "s#^#chr#" \
 	| bgzip -c > $target.build \
-	&& mv $target.build $target
+	&& tabix -p bed $target.build \
+	&& mv $target.build $target \
+	&& mv $target.build.tbi $target.tbi

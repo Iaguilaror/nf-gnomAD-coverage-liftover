@@ -327,7 +327,7 @@ process _003_sort_compress {
 	file mk_files from mkfiles_003
 
 	output:
-	file "*.bed.gz" into results_003_sort_compress
+	file "*.bed.gz*" into results_003_sort_compress
 
 	"""
 	bash runmk.sh
