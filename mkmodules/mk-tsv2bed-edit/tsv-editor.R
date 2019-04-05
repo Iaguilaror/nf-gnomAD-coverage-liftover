@@ -15,11 +15,15 @@ data.df <- read.table(file = args[1], header = F, sep = "\t", stringsAsFactors =
 ## Round means
 data.df$V3 <- round(data.df$V3, digits = 2)
 
-## Repeat col 2 for bed end position
-data.df$V5 <- data.df$V2
+## Copy col 2 and substract for bed start position
+data.df$V4 <- data.df$V2 -1
 
 ## Reorder columns
-data.df <- data.df[,c(1,2,5,3,4)]
+# 1 is chromosome name
+# 4 is bed start
+# 2 is bed end
+# 3 is mean coverage
+data.df <- data.df[,c(1,4,2,3)]
 
 ## save data
 write.table(x = data.df, file = args[2], append = F, quote = F, sep = "\t", row.names = F, col.names = F)

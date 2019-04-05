@@ -8,5 +8,5 @@ MKSHELL=/bin/bash
 
 %.tmp:Q: %.tsv
 	echo "[DEBUG] removing columns from tsv file"
-	cut -f1-4 $prereq > $target.build \
+	cut -f1-3 $prereq > $target.build \
 	&& mv $target.build $target

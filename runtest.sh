@@ -3,7 +3,7 @@
 echo -e "======\n Testing NF execution \n======" \
 && rm -rf test/results/ \
 && nextflow run liftover-coverage.nf \
-	--covfile test/data/sample_gnomad.genomes.coverage.summary.tsv.bgz \
+	--covfile test/data/sample_gnomad.exomes.coverage.summary.tsv.bgz \
 	--chainfile test/reference/GRCh37_to_GRCh38.chain \
 	--chunks 2 \
 	--output_dir test/results \
