@@ -12,3 +12,6 @@ work
 
 ## ignore test results
 test/results
+
+## ignore real data
+real-data
